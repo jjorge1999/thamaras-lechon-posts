@@ -198,7 +198,7 @@ def make(spec, out):
         tmp = ImageDraw.Draw(Image.new("RGB", (W, H)))
         yend = headline_block(tmp, spec["headline"], spec.get("sub"))
         top = int(yend) + 10
-        img = photo_bg("lechon_whole.jpg" if style == "lechon" else "lechon_sliced.jpg", box_h=1100 - top, top=top)
+        img = photo_bg("lechon_whole.jpg", box_h=1100 - top, top=top)
         d = ImageDraw.Draw(img)
         header(d, spec.get("tag"))
         headline_block(d, spec["headline"], spec.get("sub"))
