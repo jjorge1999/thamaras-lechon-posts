@@ -1,0 +1,385 @@
+[
+ {
+  "id": "L01",
+  "style": "lechon",
+  "tag": "FIESTA SEASON",
+  "headline": "Fiesta na! Asa ang lechon?",
+  "sub": "Ayaw pag-ulahi — reserve na og sayo!",
+  "items": [
+   "Whole Lechon"
+  ],
+  "cta": "MESSAGE LANG MI",
+  "cta_sub": "para ma-reserve ang imong lechon!"
+ },
+ {
+  "id": "L02",
+  "style": "lechon",
+  "tag": "BIRTHDAY HANDAAN",
+  "headline": "Birthday party nga walay lechon?",
+  "sub": "Dili pwede! Kami na bahala sa bida.",
+  "items": [
+   "Whole Lechon",
+   "Lechon Belly"
+  ],
+  "cta": "MESSAGE LANG MI",
+  "cta_sub": "para ma-reserve ang imong slot!"
+ },
+ {
+  "id": "L03",
+  "style": "lechon",
+  "tag": "PAYDAY TREAT",
+  "headline": "Sweldo na! Treat ang pamilya",
+  "sub": "Deserve ninyo ang crispy nga lechon.",
+  "items": [
+   "Lechon per kilo",
+   "Lechon Tub"
+  ],
+  "cta": "MESSAGE LANG MI",
+  "cta_sub": "o adto lang sa karenderia!"
+ },
+ {
+  "id": "L04",
+  "style": "lechon",
+  "tag": "OFW HOMECOMING",
+  "headline": "Pag-uli ni Papa, lechon dayon!",
+  "sub": "Ang pinakalami nga welcome home.",
+  "items": [
+   "Whole Lechon",
+   "Lechon Belly"
+  ],
+  "cta": "MESSAGE LANG MI",
+  "cta_sub": "para ma-reserve una sa iyang pag-uli!"
+ },
+ {
+  "id": "L05",
+  "style": "lechon",
+  "tag": "BEHIND THE SCENES",
+  "headline": "Alas 3 sa buntag, nag-ihaw na mi",
+  "sub": "Para crispy ug init inig abot sa inyo.",
+  "items": [
+   "Whole Lechon"
+  ],
+  "cta": "MESSAGE LANG MI",
+  "cta_sub": "para ma-reserve ang imong lechon!"
+ },
+ {
+  "id": "L06",
+  "style": "lechon",
+  "tag": "NAHUBSAN NA PUD",
+  "headline": "Pila na lang ang nabilin!",
+  "sub": "First come, first serve gyud po.",
+  "items": [
+   "Lechon Belly",
+   "Lechon per kilo"
+  ],
+  "cta": "MESSAGE LANG MI",
+  "cta_sub": "para ma-reserve bago mahurot!"
+ },
+ {
+  "id": "L07",
+  "style": "lechon",
+  "tag": "REUNION",
+  "headline": "Reunion sa pamilya? Lechon ang sentro",
+  "sub": "Usa ka lechon, daghan ang malipay.",
+  "items": [
+   "Whole Lechon"
+  ],
+  "cta": "MESSAGE LANG MI",
+  "cta_sub": "para ma-reserve ang imong lechon!"
+ },
+ {
+  "id": "L08",
+  "style": "lechon",
+  "tag": "GAMAY NGA HANDAAN",
+  "headline": "Gamay ra ang bisita? Sakto ni!",
+  "sub": "Lechon Belly — crispy, juicy, sulit.",
+  "items": [
+   "Lechon Belly"
+  ],
+  "cta": "MESSAGE LANG MI",
+  "cta_sub": "para ma-reserve!"
+ },
+ {
+  "id": "L09",
+  "style": "lechon",
+  "tag": "POV",
+  "headline": "POV: ikaw ang nag-order sa lechon",
+  "sub": "Ikaw na ang bida sa handaan!",
+  "items": [
+   "Whole Lechon",
+   "Lechon Belly"
+  ],
+  "cta": "MESSAGE LANG MI",
+  "cta_sub": "para ma-reserve ang imong lechon!"
+ },
+ {
+  "id": "L10",
+  "style": "lechon",
+  "tag": "WEEKEND NA",
+  "headline": "Weekend na! Unsay handaan?",
+  "sub": "Lechon gihapon ang tubag.",
+  "items": [
+   "Lechon per kilo",
+   "Lechon Belly"
+  ],
+  "cta": "MESSAGE LANG MI",
+  "cta_sub": "para sa Sabado o Domingo!"
+ },
+ {
+  "id": "L11",
+  "style": "lechon",
+  "tag": "GRADUATION / KASAL",
+  "headline": "Dako nga okasyon? Dako nga lechon!",
+  "sub": "Naa mi gikan gamay hangtod dako.",
+  "items": [
+   "Whole Lechon"
+  ],
+  "cta": "MESSAGE LANG MI",
+  "cta_sub": "para ma-reserve og sayo!"
+ },
+ {
+  "id": "L12",
+  "style": "lechon",
+  "tag": "PANG-TAKE HOME",
+  "headline": "Pasalubong nga lechon? Pwede!",
+  "sub": "Lechon Tub — sakto pang-uli sa balay.",
+  "items": [
+   "Lechon Tub",
+   "Lechon per kilo"
+  ],
+  "cta": "MESSAGE LANG MI",
+  "cta_sub": "o adto lang sa karenderia!"
+ },
+ {
+  "id": "K01",
+  "style": "karenderia",
+  "tag": "LUNCH BREAK",
+  "headline": "Lunch na! Unsa imong ulam?",
+  "sub": "Init nga kan-on, lami nga ulam — busog!",
+  "items": [
+   "Adobong Atay at Itlog",
+   "Mini Liempo"
+  ],
+  "cta": "ADTO NA SA KARENDERIA",
+  "cta_sub": "o message mi para sa take-out!"
+ },
+ {
+  "id": "K02",
+  "style": "karenderia",
+  "tag": "TING-ULAN",
+  "headline": "Ulan na pud? Sabaw ta!",
+  "sub": "Init-init nga sabaw para sa bugnaw nga adlaw.",
+  "items": [
+   "Nilagang Buto-buto",
+   "Tinola Isda"
+  ],
+  "cta": "ADTO NA SA KARENDERIA",
+  "cta_sub": "o message mi para sa take-out!"
+ },
+ {
+  "id": "K03",
+  "style": "karenderia",
+  "tag": "BUSY NANAY",
+  "headline": "Wala nay oras magluto, Nay?",
+  "sub": "Kami na bahala sa ulam sa pamilya.",
+  "items": [
+   "Adobong Manok",
+   "Afritada Manok",
+   "Nangka"
+  ],
+  "cta": "ADTO NA SA KARENDERIA",
+  "cta_sub": "o message mi para sa take-out!"
+ },
+ {
+  "id": "K04",
+  "style": "karenderia",
+  "tag": "ESTUDYANTE",
+  "headline": "Gikan klase, gutom kaayo?",
+  "sub": "Busog na, sulit pa sa baon.",
+  "items": [
+   "Student Meal",
+   "Chicken Joy"
+  ],
+  "cta": "ADTO NA SA KARENDERIA",
+  "cta_sub": "duol ra sa eskwelahan!"
+ },
+ {
+  "id": "K05",
+  "style": "karenderia",
+  "tag": "TRABAHADOR",
+  "headline": "Kusog sa trabaho, kusog sa kaon!",
+  "sub": "Doble rice para sa doble nga kusog.",
+  "items": [
+   "Mini Liempo",
+   "Humba Baboy",
+   "Dinuguan"
+  ],
+  "cta": "ADTO NA SA KARENDERIA",
+  "cta_sub": "o message mi para sa take-out!"
+ },
+ {
+  "id": "K06",
+  "style": "karenderia",
+  "tag": "BESTSELLER",
+  "headline": "Ang ulam nga perme mahurot",
+  "sub": "Adobong Atay at Itlog — #1 sa karenderia!",
+  "items": [
+   "Adobong Atay at Itlog"
+  ],
+  "cta": "ADTO NA SA KARENDERIA",
+  "cta_sub": "sayo para abtik pa!"
+ },
+ {
+  "id": "K07",
+  "style": "karenderia",
+  "tag": "GULAY DAY",
+  "headline": "Healthy pero lami? Naa mi!",
+  "sub": "Gulay nga luto sa balay, lami sa kan-on.",
+  "items": [
+   "Pinakbet",
+   "Chopsuey",
+   "Ginisang Monggo"
+  ],
+  "cta": "ADTO NA SA KARENDERIA",
+  "cta_sub": "o message mi para sa take-out!"
+ },
+ {
+  "id": "K08",
+  "style": "karenderia",
+  "tag": "LUTONG BALAY",
+  "headline": "Lami sama sa luto ni Lola",
+  "sub": "Lutong balay, init pa, ready na.",
+  "items": [
+   "Humba Baboy",
+   "Pancit Bihon"
+  ],
+  "cta": "ADTO NA SA KARENDERIA",
+  "cta_sub": "o message mi para sa take-out!"
+ },
+ {
+  "id": "K09",
+  "style": "karenderia",
+  "tag": "PANIHAPON",
+  "headline": "Unsay panihapon karon?",
+  "sub": "Ayaw na kabalaka — pili lang diri.",
+  "items": [
+   "Afritadang Baboy",
+   "Spicy Pork Paklay",
+   "Ginataang Talong"
+  ],
+  "cta": "ADTO NA SA KARENDERIA",
+  "cta_sub": "o message mi para sa take-out!"
+ },
+ {
+  "id": "K10",
+  "style": "karenderia",
+  "tag": "LECHON PAKSIW",
+  "headline": "Lechon Paksiw — lami gihapon!",
+  "sub": "Tam-is-aslom nga lami, bagay sa kan-on.",
+  "items": [
+   "Lechon Paksiw"
+  ],
+  "cta": "ADTO NA SA KARENDERIA",
+  "cta_sub": "o message mi para sa take-out!"
+ },
+ {
+  "id": "B01",
+  "style": "bbq",
+  "tag": "MERIENDA TIME",
+  "headline": "Alas-4 na? Ihaw time na!",
+  "sub": "Mainit pa gikan sa uling!",
+  "items": [
+   "Botche",
+   "Isaw",
+   "Pork BBQ"
+  ],
+  "cta": "ADTO NA SA KARENDERIA",
+  "cta_sub": "o message mi!"
+ },
+ {
+  "id": "B02",
+  "style": "bbq",
+  "tag": "BARKADA NIGHT",
+  "headline": "Barkada night? Ihaw ang kauban!",
+  "sub": "Order og daghan para sa tanan.",
+  "items": [
+   "Pork BBQ",
+   "Chicken BBQ",
+   "Jumbo Hotdog BBQ"
+  ],
+  "cta": "ADTO NA SA KARENDERIA",
+  "cta_sub": "o message mi para sa take-out!"
+ },
+ {
+  "id": "B03",
+  "style": "bbq",
+  "tag": "PATOK",
+  "headline": "Botche ug Isaw: ang tag-team!",
+  "sub": "Ang perme mahurot sa among ihawan.",
+  "items": [
+   "Botche",
+   "Isaw"
+  ],
+  "cta": "ADTO NA SA KARENDERIA",
+  "cta_sub": "sayo para abtik pa!"
+ },
+ {
+  "id": "B04",
+  "style": "bbq",
+  "tag": "PANG-ULAM",
+  "headline": "Ihaw pang-ulam? Pwede kaayo!",
+  "sub": "Pork Liempo ug Chicken BBQ — busog!",
+  "items": [
+   "Pork Liempo",
+   "Chicken BBQ"
+  ],
+  "cta": "ADTO NA SA KARENDERIA",
+  "cta_sub": "o message mi para sa take-out!"
+ },
+ {
+  "id": "B05",
+  "style": "bbq",
+  "tag": "PARA SA BATA",
+  "headline": "Paborito sa mga bata!",
+  "sub": "Hotdog BBQ — pang-merienda o pang-baon.",
+  "items": [
+   "Mini Hotdog BBQ",
+   "Jumbo Hotdog BBQ"
+  ],
+  "cta": "ADTO NA SA KARENDERIA",
+  "cta_sub": "o message mi!"
+ },
+ {
+  "id": "P01",
+  "style": "poll",
+  "tag": "COMMENT DIRI",
+  "headline": "Lechon: asa ka?",
+  "sub": "Isulti sa comments!",
+  "poll_a": "Crispy nga panit",
+  "poll_b": "Juicy nga laman",
+  "cta": "MESSAGE LANG MI",
+  "cta_sub": "para ma-reserve ang lechon!"
+ },
+ {
+  "id": "P02",
+  "style": "poll",
+  "tag": "COMMENT DIRI",
+  "headline": "Sabaw o prito?",
+  "sub": "Unsa imong pili sa ulan?",
+  "poll_a": "Nilagang Buto-buto",
+  "poll_b": "Mini Liempo",
+  "cta": "ADTO NA SA KARENDERIA",
+  "cta_sub": "o message mi para sa take-out!"
+ },
+ {
+  "id": "P03",
+  "style": "poll",
+  "tag": "COMMENT DIRI",
+  "headline": "Team Botche o Team Isaw?",
+  "sub": "Pili lang usa — kung kaya nimo!",
+  "poll_a": "Botche",
+  "poll_b": "Isaw",
+  "cta": "ADTO NA SA KARENDERIA",
+  "cta_sub": "o message mi!"
+ }
+]

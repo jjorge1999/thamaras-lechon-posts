@@ -7,3 +7,10 @@ Thamara's Letchon Facebook Page through Buffer by a daily scheduled task.
 
 Styles: `lechon`, `lechon_sliced`, `karenderia`, `bbq`, `poll`. See the docstring in `make_post.py`.
 Base photos live in `assets/`.
+
+## Library (fallback graphics)
+
+`library/` holds 30 ready-made graphics (`L` = lechon, `K` = karenderia, `B` = barbecue, `P` = poll).
+`library/specs.json` lists each one's hook, sub line and featured items so a caption can match it.
+The daily task uses one of these when it can't upload a fresh graphic, picking one that hasn't
+been posted before.

@@ -38,7 +38,7 @@ def font(kind, size):
 PRICE_RE = re.compile(r"(₱|php|\bp\s?\d|\d+\s?(pesos?|php))", re.I)
 
 def check_no_price(spec):
-    blob = json.dumps(spec, ensure_ascii=False)
+    blob = json.dumps({k: v for k, v in spec.items() if k != "id"}, ensure_ascii=False)
     if PRICE_RE.search(blob):
         raise SystemExit("Spec contains a price or peso amount - not allowed.")
 
@@ -208,7 +208,7 @@ def make(spec, out):
         d = ImageDraw.Draw(img)
         header(d, spec.get("tag"))
         y = headline_block(d, spec["headline"], spec.get("sub"))
-        cy = max(y + (330 if style == 'karenderia' else 330), 720)
+        cy = min(max(int(y) + 330, 720), 760)
         (draw_bowl if style == "karenderia" else draw_skewers)(d, W // 2, cy, 1.1)
         img = item_chips(img, spec.get("items"), 1010)
     elif style == "poll":
