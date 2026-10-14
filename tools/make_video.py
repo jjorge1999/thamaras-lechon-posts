@@ -1,7 +1,10 @@
 #!/usr/bin/env python3
 """Make a 15s 1080x1350 promo video from the lechon photo (Ken Burns + text beats + fire-crackle audio).
-Usage: python3 tools/make_video.py out.mp4"""
-import os, sys, subprocess, tempfile, wave
+Usage: python3 tools/make_video.py out.mp4 [spec.json]
+spec.json (optional): {"seed": int, "beats": [[start,end,[cx,cy,zoom],[cx,cy,zoom],line1,line2], ...],
+  "end": {"q1": "...", "q2": "...", "items": "...", "cta": "...", "cta_sub": "..."}}
+The last beat must have null lines (it shows the end card). No prices."""
+import os, sys, json, subprocess, tempfile, wave
 import numpy as np
 from PIL import Image, ImageDraw, ImageFont, ImageFilter, ImageEnhance
 
@@ -22,6 +25,10 @@ BEATS = [
  (7.2,10.8, (0.70,0.60,1.30),(0.45,0.55,1.05), "Bida sa imong handaan", "Birthday  •  Fiesta  •  Reunion"),
  (10.8,15.0,(0.50,0.52,1.05),(0.50,0.52,1.12), None, None),
 ]
+
+END = {"q1": "Naa kay handaan", "q2": "this weekend?", "items": "Whole Lechon  •  Lechon Belly",
+       "cta": "MESSAGE LANG MI", "cta_sub": "para ma-reserve!"}
+SEED = 20261014
 
 def ease(t): return t*t*(3-2*t)
 
@@ -63,20 +70,20 @@ def overlay(img, t, beat):
         cd.rounded_rectangle((90, 760, 990, 1180), radius=36, fill=(28,9,4,a), outline=GOLD+(a,), width=4)
         img = Image.alpha_composite(img, card); d = ImageDraw.Draw(img)
         if k > 0.4:
-            d.text((W//2, 300), "Naa kay handaan", font=F("b", 78), fill=YEL, anchor="mm", stroke_width=6, stroke_fill=MAROON)
-            d.text((W//2, 400), "this weekend?", font=F("b", 78), fill=YEL, anchor="mm", stroke_width=6, stroke_fill=MAROON)
-            d.text((W//2, 840), "Whole Lechon  •  Lechon Belly", font=F("b", 40), fill=GOLD, anchor="mm")
+            d.text((W//2, 300), END["q1"], font=F("b", 78 if len(END["q1"]) <= 20 else 62), fill=YEL, anchor="mm", stroke_width=6, stroke_fill=MAROON)
+            d.text((W//2, 400), END["q2"], font=F("b", 78 if len(END["q2"]) <= 20 else 62), fill=YEL, anchor="mm", stroke_width=6, stroke_fill=MAROON)
+            d.text((W//2, 840), END["items"], font=F("b", 40), fill=GOLD, anchor="mm")
             pulse = 1 + 0.03*np.sin((t-s)*6)
             bw, bh = int(780*pulse), int(120*pulse)
             d.rounded_rectangle((W//2-bw//2, 920-bh//2+40, W//2+bw//2, 920+bh//2+40), radius=bh//2, fill=YEL, outline=MAROON, width=5)
-            d.text((W//2, 948), "MESSAGE LANG MI", font=F("b", 50), fill=MAROON, anchor="mm")
-            d.text((W//2, 1000), "para ma-reserve!", font=F("r", 32), fill=MAROON, anchor="mm")
+            d.text((W//2, 948), END["cta"], font=F("b", 50 if len(END["cta"]) <= 16 else 40), fill=MAROON, anchor="mm")
+            d.text((W//2, 1000), END["cta_sub"], font=F("r", 32), fill=MAROON, anchor="mm")
             d.text((W//2, 1110), "(0951) 781 4902", font=F("b", 52), fill=CREAM, anchor="mm")
             d.text((W//2, H-70), "Lapinigan, San Francisco, Agusan del Sur", font=F("r", 30), fill=CREAM, anchor="mm")
     return img.convert("RGB")
 
 def audio(path):
-    sr = 44100; n = int(sr*DUR); rng = np.random.default_rng(20261014)
+    sr = 44100; n = int(sr*DUR); rng = np.random.default_rng(SEED)
     brown = np.cumsum(rng.normal(0, 1, n)); brown -= np.convolve(brown, np.ones(2000)/2000, mode="same")
     brown = brown / (np.abs(brown).max()+1e-9) * 0.10
     crackle = np.zeros(n)
@@ -85,7 +92,10 @@ def audio(path):
         crackle[i:i+L] += rng.normal(0, 1, L) * np.exp(-np.linspace(0, 6, L)) * rng.uniform(0.15, 0.55)
     t = np.arange(n)/sr
     # warm pad: Am - F - C - G, one per ~3.75s
-    chords = [(220,261.6,329.6),(174.6,220,261.6),(130.8,164.8,196),(196,246.9,293.7)]
+    progs = [[(220,261.6,329.6),(174.6,220,261.6),(130.8,164.8,196),(196,246.9,293.7)],
+             [(261.6,329.6,392),(196,246.9,293.7),(220,261.6,329.6),(174.6,220,261.6)],
+             [(146.8,174.6,220),(196,246.9,293.7),(130.8,164.8,196),(220,277.2,329.6)]]
+    chords = progs[SEED % len(progs)]
     pad = np.zeros(n)
     for ci, ch in enumerate(chords):
         a, b = int(ci*n/4), int((ci+1)*n/4); tt = t[a:b]-t[a]
@@ -120,4 +130,12 @@ def main(out):
     print(out)
 
 if __name__ == "__main__":
+    if len(sys.argv) > 2:
+        spec = json.load(open(sys.argv[2], encoding="utf-8"))
+        blob = json.dumps(spec, ensure_ascii=False)
+        if "₱" in blob or "php" in blob.lower() or "peso" in blob.lower():
+            raise SystemExit("Spec contains a price - not allowed.")
+        BEATS[:] = [tuple(b[:2]) + (tuple(b[2]), tuple(b[3]), b[4], b[5]) for b in spec["beats"]]
+        END.update(spec.get("end", {}))
+        SEED = spec.get("seed", SEED)
     main(sys.argv[1])

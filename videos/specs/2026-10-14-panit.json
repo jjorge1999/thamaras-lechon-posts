@@ -1,0 +1,8 @@
+{"seed": 20261015,
+ "beats": [
+  [0.0, 3.4, [0.45,0.50,1.35], [0.60,0.45,1.15], "Kinsa ang mo-claim", "sa panit?"],
+  [3.4, 6.8, [0.75,0.40,1.40], [0.70,0.50,1.20], "Ang tinuod nga away", "sa handaan"],
+  [6.8, 10.4, [0.25,0.45,1.30], [0.35,0.50,1.10], "Para walay away...", "order og igo para sa tanan!"],
+  [10.4, 15.0, [0.50,0.52,1.08], [0.52,0.50,1.16], null, null]
+ ],
+ "end": {"q1": "Crispy nga panit", "q2": "para sa tanan!", "items": "Lechon Belly  •  Lechon per kilo", "cta": "MESSAGE LANG MI", "cta_sub": "para ma-reserve!"}}
