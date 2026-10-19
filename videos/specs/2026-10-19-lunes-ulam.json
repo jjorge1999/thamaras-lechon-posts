@@ -1,0 +1,8 @@
+{"seed": 20261019, "bg": "karenderia_bowl.jpg",
+ "beats": [
+  [0.0, 3.4, [0.50,0.58,1.45], [0.50,0.55,1.20], "Lunes nga kapoy?", "Unsay lutuon karon?"],
+  [3.4, 6.8, [0.40,0.55,1.35], [0.58,0.57,1.20], "Pahuway sa kusina,", "Nay ug Tay"],
+  [6.8, 10.4, [0.60,0.60,1.30], [0.48,0.56,1.10], "Init pa sa karenderia", "Buto-buto • Atay at Itlog • Nangka"],
+  [10.4, 15.0, [0.50,0.55,1.05], [0.50,0.55,1.12], null, null]
+ ],
+ "end": {"q1": "Lunes nga kapoy?", "q2": "Kami na sa ulam!", "items": "Buto-buto  •  Atay at Itlog  •  Nangka", "cta": "ADTO NA SA KARENDERIA", "cta_sub": "o message mi para sa take-out"}}

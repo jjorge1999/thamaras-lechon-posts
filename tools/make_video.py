@@ -13,10 +13,12 @@ W, H, FPS, DUR = 1080, 1350, 30, 15.0
 GOLD=(240,196,98); MAROON=(92,15,5); CREAM=(255,246,224); YEL=(255,225,77); DARK=(38,12,6)
 F = lambda k,s: ImageFont.truetype({"b":"/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf","r":"/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf","s":"/usr/share/fonts/truetype/dejavu/DejaVuSerif-Bold.ttf"}[k], s)
 
-src = Image.open(os.path.join(HERE, "assets", "lechon_whole.jpg")).convert("RGB")
-# upscale once so crops stay sharp-ish
-base = src.resize((src.width*2, src.height*2), Image.LANCZOS)
-base = ImageEnhance.Contrast(base).enhance(1.08)
+def load_bg(name):
+    global base
+    src = Image.open(os.path.join(HERE, "assets", name)).convert("RGB")
+    # upscale once so crops stay sharp-ish
+    base = ImageEnhance.Contrast(src.resize((src.width*2, src.height*2), Image.LANCZOS)).enhance(1.08)
+load_bg("lechon_whole.jpg")
 
 # beats: (start, end, crop start (cx,cy,zoom), crop end, line1, line2)
 BEATS = [
@@ -138,4 +140,5 @@ if __name__ == "__main__":
         BEATS[:] = [tuple(b[:2]) + (tuple(b[2]), tuple(b[3]), b[4], b[5]) for b in spec["beats"]]
         END.update(spec.get("end", {}))
         SEED = spec.get("seed", SEED)
+        if spec.get("bg"): load_bg(spec["bg"])
     main(sys.argv[1])
