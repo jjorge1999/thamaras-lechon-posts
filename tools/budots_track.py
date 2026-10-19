@@ -5,7 +5,7 @@ SR = 44100
 out = sys.argv[1]; DUR = float(sys.argv[2]) if len(sys.argv) > 2 else 15.0
 seed = int(sys.argv[3]) if len(sys.argv) > 3 else 1; RISE = float(sys.argv[4]) if len(sys.argv) > 4 else None
 rng = np.random.default_rng(seed)
-BPM = 124; beat = 60 / BPM; step = beat / 4
+BPM = [124, 118, 128, 122, 126][seed % 5]; beat = 60 / BPM; step = beat / 4
 N = int(SR * DUR); mix = np.zeros(N)
 def add(sig, t, g=1.0):
     i = int(t * SR); j = min(N, i + len(sig))
@@ -27,7 +27,8 @@ def tone(freq, length, wave_="saw", d=0.12):
     elif wave_ == "sq": x = np.sign(np.sin(2 * np.pi * freq * t))
     else: x = np.sin(2 * np.pi * freq * t)
     return x * env(n, 0.003, d)
-hz = lambda m: 440 * 2 ** ((m - 69) / 12)
+TR = [0, 2, -3, 5, -2][seed % 5]  # key changes with seed so tracks differ
+hz = lambda m: 440 * 2 ** ((m + TR - 69) / 12)
 # chord loop (original): Am - F - C - G, one bar each
 prog = [[57, 60, 64], [53, 57, 60], [48, 52, 55], [55, 59, 62]]
 bass = [45, 41, 48, 43]

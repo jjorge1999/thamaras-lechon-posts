@@ -1,0 +1,8 @@
+{"seed": 20261020,
+ "beats": [
+  [0.0, 3.4, [0.55,0.52,1.35], [0.45,0.48,1.15], "Uli ang tanan", "karong Undas"],
+  [3.4, 6.8, [0.30,0.45,1.40], [0.40,0.50,1.20], "Tita, Tito, mga ig-agaw...", "kompleto ang pamilya"],
+  [6.8, 10.4, [0.70,0.55,1.30], [0.55,0.50,1.10], "Kinsa ang bida", "sa lamesa?"],
+  [10.4, 15.0, [0.50,0.52,1.08], [0.52,0.50,1.16], null, null]
+ ],
+ "end": {"q1": "Pa-reserve na", "q2": "para sa Undas!", "items": "Whole Lechon  •  Lechon Belly", "cta": "MESSAGE LANG MI", "cta_sub": "para ma-reserve!"}}
