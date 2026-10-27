@@ -1,4 +1,7 @@
 name: Deploy Nano Banana connector
+# Needs repository secrets: GEMINI_API_KEY and CLOUDFLARE_API_TOKEN.
+# CLOUDFLARE_ACCOUNT_ID is optional (wrangler detects it when the token covers one account).
+# The connector password (MCP_TOKEN) is derived from the Gemini key, so it never has to be stored separately.
 on:
   workflow_dispatch:
   push:
@@ -7,8 +10,20 @@ on:
 jobs:
   deploy:
     runs-on: ubuntu-latest
+    env:
+      GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+      CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+      CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
     steps:
       - uses: actions/checkout@v4
+      - name: Check secrets and derive connector password
+        run: |
+          if [ -z "$GEMINI_API_KEY" ] || [ -z "$CLOUDFLARE_API_TOKEN" ]; then
+            echo "::error::Add GEMINI_API_KEY and CLOUDFLARE_API_TOKEN in Settings > Secrets and variables > Actions."; exit 1
+          fi
+          t=$(printf '%s' "nanobanana:$GEMINI_API_KEY" | sha256sum | cut -c1-32)
+          echo "::add-mask::$t"
+          echo "MCP_TOKEN=$t" >> "$GITHUB_ENV"
       - uses: cloudflare/wrangler-action@v3
         with:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
@@ -17,6 +32,3 @@ jobs:
           secrets: |
             GEMINI_API_KEY
             MCP_TOKEN
-        env:
-          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
-          MCP_TOKEN: ${{ secrets.MCP_TOKEN }}
