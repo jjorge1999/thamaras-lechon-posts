@@ -1,0 +1,12 @@
+name = "nanobanana-mcp"
+main = "src/index.js"
+compatibility_date = "2025-09-01"
+workers_dev = true
+
+[vars]
+MODEL = "gemini-nano-banana-2.1"
+FALLBACK_MODEL = "gemini-2.5-flash-image"
+
+[[r2_buckets]]
+binding = "IMAGES"
+bucket_name = "nanobanana-images"
