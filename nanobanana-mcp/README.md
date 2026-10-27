@@ -10,3 +10,5 @@ Repository secrets required: `CLOUDFLARE_API_TOKEN`, `CLOUDFLARE_ACCOUNT_ID`, `G
 
 Connector URL to add in Claude (Settings → Connectors → Add custom connector):
 `https://nanobanana-mcp.<your-subdomain>.workers.dev/mcp/<MCP_TOKEN>`
+
+Deploy check: 2026-10-27T18:52:21Z
