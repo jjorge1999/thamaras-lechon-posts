@@ -1,56 +1,73 @@
-"""Halloween kids event graphic (1080x1350). Usage: python3 tools/make_halloween.py out.jpg"""
-import sys, math, random
-from PIL import Image, ImageDraw, ImageFont, ImageFilter
-W, H = 1080, 1350
-F = lambda k, s: ImageFont.truetype({"b": "/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf",
-    "r": "/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf", "s": "/usr/share/fonts/truetype/dejavu/DejaVuSerif-Bold.ttf"}[k], s)
-ORANGE=(255,140,26); PURPLE=(40,14,60); YEL=(255,214,64); CREAM=(255,244,225); GREEN=(120,200,70)
-img = Image.new("RGB", (W, H), PURPLE).convert("RGBA")
-g = Image.new("RGBA", (W, H)); ImageDraw.Draw(g).ellipse((40, 380, W-40, 1180), fill=(255, 120, 20, 110))
-img = Image.alpha_composite(img, g.filter(ImageFilter.GaussianBlur(170)))
-d = ImageDraw.Draw(img); rnd = random.Random(31)
-for _ in range(60):  # stars
-    x, y = rnd.randrange(W), rnd.randrange(H); r = rnd.choice([1, 2, 2, 3])
-    d.ellipse((x-r, y-r, x+r, y+r), fill=(255, 240, 200, 150))
-def bat(cx, cy, s):
-    d.polygon([(cx, cy), (cx-60*s, cy-25*s), (cx-45*s, cy), (cx-70*s, cy+5*s), (cx-30*s, cy+12*s), (cx, cy+20*s),
-               (cx+30*s, cy+12*s), (cx+70*s, cy+5*s), (cx+45*s, cy), (cx+60*s, cy-25*s)], fill=(15, 5, 25))
-    d.ellipse((cx-12*s, cy-12*s, cx+12*s, cy+14*s), fill=(15, 5, 25))
-bat(330, 575, 0.7); bat(760, 560, 0.55); bat(540, 1035, 0.5)
-def ctext(y, text, font, fill, stroke=0, sc=(30,8,40)):
-    w = d.textlength(text, font=font); d.text(((W-w)/2, y), text, font=font, fill=fill, stroke_width=stroke, stroke_fill=sc)
-ctext(40, "THAMARA'S LECHON", F("s", 56), (240, 196, 98))
-ctext(110, "& CARINDERIA  •  LAPINIGAN", F("r", 24), CREAM)
-pill = "SABADO • OCT 31"; f = F("b", 30); w = d.textlength(pill, font=f)
-d.rounded_rectangle(((W-w)/2-26, 158, (W+w)/2+26, 206), radius=24, fill=ORANGE); ctext(164, pill, f, PURPLE)
-ctext(236, "TRICK OR TREAT", F("b", 104), ORANGE, 6)
-ctext(352, "sa Thamara's!", F("b", 84), YEL, 6)
-ctext(462, "Libre nga candy para sa mga bata!", F("b", 40), CREAM, 3)
-# jack-o-lantern
-cx, cy = 540, 760
-for dx, c in ((-120, (230, 110, 15)), (120, (230, 110, 15)), (-60, (250, 135, 25)), (60, (250, 135, 25)), (0, (255, 150, 35))):
-    d.ellipse((cx+dx-130, cy-150, cx+dx+130, cy+150), fill=c)
-d.rounded_rectangle((cx-18, cy-200, cx+18, cy-140), radius=8, fill=(70, 120, 40))
-d.polygon([(cx-120, cy-40), (cx-50, cy-40), (cx-85, cy-100)], fill=(60, 20, 10))
-d.polygon([(cx+120, cy-40), (cx+50, cy-40), (cx+85, cy-100)], fill=(60, 20, 10))
-d.polygon([(cx-20, cy+10), (cx+20, cy+10), (cx, cy-25)], fill=(60, 20, 10))
-d.chord((cx-160, cy-20, cx+160, cy+120), 0, 180, fill=(60, 20, 10))
-for k in (-90, -10, 70): d.rectangle((cx+k, cy+50, cx+k+28, cy+75), fill=(255, 150, 35))
-# wrapped candies around
-def candy(x, y, col, ang):
-    a = math.radians(ang); ca, sa = math.cos(a), math.sin(a)
-    def rot(px, py): return (x + px*ca - py*sa, y + px*sa + py*ca)
-    d.polygon([rot(-55, -22), rot(-80, -35), rot(-80, 35), rot(-55, 22)], fill=col)
-    d.polygon([rot(55, -22), rot(80, -35), rot(80, 35), rot(55, 22)], fill=col)
-    d.ellipse((x-55, y-32, x+55, y+32), fill=col)
-    d.line([rot(-30, -20), rot(30, 20)], fill=(255, 255, 255), width=6)
-for x, y, col, a in [(170, 640, (230, 60, 90), 20), (900, 620, (80, 170, 240), -25), (150, 900, GREEN, -15),
-                     (920, 890, (180, 90, 230), 30), (330, 1000, (255, 200, 40), 10), (760, 1010, (240, 90, 60), -10)]:
-    candy(x, y, col, a)
-# info box
-d.rounded_rectangle((90, 1060, W-90, 1250), radius=28, fill=(25, 8, 35), outline=ORANGE, width=4)
-ctext(1078, "Dad-a ang mga bata — naka-costume o dili!", F("b", 32), CREAM)
-d.rounded_rectangle((170, 1130, W-170, 1220), radius=45, fill=YEL)
-ctext(1146, "ADTO NA SA KARENDERIA", F("b", 44), PURPLE)
-ctext(1275, "Samtang naa pa ang candy  •  ☎ (0951) 781 4902", F("b", 30), CREAM)
-img.convert("RGB").save(sys.argv[1], quality=93); print(sys.argv[1])
+"""Halloween kids-event graphic in the premium gold & embers style.
+Usage: python3 tools/make_halloween.py out.jpg"""
+import sys, os
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+import numpy as np
+from PIL import Image, ImageDraw, ImageFilter
+import premium as P
+W, H = P.W, P.H
+
+def pumpkin(size=520):
+    s = size
+    yy, xx = np.mgrid[0:s, 0:s].astype(np.float32)
+    cx, cy = s / 2, s * 0.56; rx, ry = 0.47 * s, 0.37 * s
+    nx, ny = (xx - cx) / rx, (yy - cy) / ry
+    # slightly flattened top/bottom with lobed silhouette
+    ang = np.arctan2(ny, nx); r = np.sqrt(nx ** 2 + ny ** 2)
+    edge = 1 - 0.05 * np.abs(np.sin(ang * 3))
+    body = r < edge
+    nz = np.sqrt(np.clip(1 - np.clip(r / edge, 0, 1) ** 2, 0, 1))
+    ribs = 0.5 + 0.5 * np.cos(np.clip(nx, -1, 1) * np.pi * 2.5)          # vertical lobes
+    light = 0.25 + 0.75 * nz * (0.65 + 0.35 * ribs) - 0.25 * ny - 0.12 * nx
+    light = np.clip(light, 0.05, 1.2)
+    rgb = np.stack([np.clip(235 * light + 15, 0, 255), np.clip(110 * light ** 1.2, 0, 255), np.clip(18 * light, 0, 255)], -1)
+    im = Image.fromarray(rgb.astype(np.uint8), "RGB").convert("RGBA")
+    im.putalpha(Image.fromarray((body * 255).astype(np.uint8)).filter(ImageFilter.GaussianBlur(1.2)))
+    d = ImageDraw.Draw(im)
+    d.polygon([(cx - 20, cy - ry + 14), (cx + 16, cy - ry + 14), (cx + 34, cy - ry - 60), (cx + 4, cy - ry - 66)], fill=(66, 58, 26, 255))
+    d.line([(cx - 6, cy - ry + 10), (cx + 14, cy - ry - 58)], fill=(110, 100, 50, 255), width=4)
+    face = Image.new("L", (s, s), 0); f = ImageDraw.Draw(face)
+    f.polygon([(cx - 0.30 * s, cy - 0.03 * s), (cx - 0.09 * s, cy - 0.03 * s), (cx - 0.17 * s, cy - 0.17 * s)], fill=255)
+    f.polygon([(cx + 0.30 * s, cy - 0.03 * s), (cx + 0.09 * s, cy - 0.03 * s), (cx + 0.17 * s, cy - 0.17 * s)], fill=255)
+    f.polygon([(cx - 0.045 * s, cy + 0.05 * s), (cx + 0.045 * s, cy + 0.05 * s), (cx, cy - 0.03 * s)], fill=255)
+    f.chord((cx - 0.30 * s, cy - 0.0 * s, cx + 0.30 * s, cy + 0.25 * s), 0, 180, fill=255)
+    for k in (-0.15, 0.0, 0.15):
+        f.rectangle((cx + k * s - 0.03 * s, cy + 0.12 * s, cx + k * s + 0.03 * s, cy + 0.155 * s), fill=0)
+    # dark carved rim, then bright candle glow inside
+    rim = Image.new("RGBA", (s, s), (90, 30, 5, 0)); rim.putalpha(face.filter(ImageFilter.MaxFilter(9)))
+    im = Image.alpha_composite(im, rim)
+    inner = P.vgrad(s, s, [(0, (255, 252, 200)), (0.5, (255, 214, 90)), (0.85, (255, 150, 30)), (1, (230, 100, 10))]).convert("RGBA"); inner.putalpha(face)
+    halo = Image.new("RGBA", (s, s), (255, 190, 60, 0)); halo.putalpha(face.filter(ImageFilter.GaussianBlur(16)).point(lambda v: min(255, v * 2)))
+    im = Image.alpha_composite(im, halo); im = Image.alpha_composite(im, inner)
+    return im
+
+def main(out):
+    img = P.background("night", seed=31, glow_box=(160, 560, 920, 1120))
+    img = P.embers(img, seed=31, n=170)
+    # bats
+    d = ImageDraw.Draw(img)
+    def bat(cx, cy, s):
+        d.polygon([(cx, cy), (cx - 60 * s, cy - 25 * s), (cx - 45 * s, cy), (cx - 70 * s, cy + 5 * s), (cx - 30 * s, cy + 12 * s), (cx, cy + 20 * s),
+                   (cx + 30 * s, cy + 12 * s), (cx + 70 * s, cy + 5 * s), (cx + 45 * s, cy), (cx + 60 * s, cy - 25 * s)], fill=(14, 6, 22, 230))
+        d.ellipse((cx - 12 * s, cy - 12 * s, cx + 12 * s, cy + 14 * s), fill=(14, 6, 22, 230))
+    bat(930, 250, 0.9); bat(130, 560, 0.7); bat(960, 600, 0.55)
+    img = P.brand(img)
+    img = P.date_pill(img, "SABADO • OCT 31", 205)
+    img = P.metal_text(img, "TRICK OR TREAT", P.fit("TRICK OR TREAT", "display", 118, W - 80), 330, stops=P.FIRE)
+    img = P.metal_text(img, "sa Thamara's!", P.font("script", 120), 450, glow_a=110)
+    img = P.soft_text(img, "Libre nga candy para sa mga bata!", P.font("sansb", 40), 545)
+    # pumpkin + candies with depth
+    pk = pumpkin(520); img.alpha_composite(pk, (W // 2 - 260, 560))
+    cands = [((214, 40, 140), 150, 25, 130, 860, 0), ((40, 70, 210), 150, -20, 770, 850, 0), ((190, 110, 40), 130, 12, 300, 935, 0),
+             ((40, 70, 210), 120, 30, 660, 945, 0), ((214, 40, 140), 240, -30, -150, 1080, 7), ((210, 160, 50), 240, 25, 880, 1080, 7),
+             ((190, 110, 40), 110, -15, 40, 700, 3), ((150, 60, 200), 110, 20, 890, 700, 3)]
+    for i, (col, sz, ang, x, y, blur) in enumerate(cands):
+        c = P.depth_blur(P.wrapped_candy(col, sz, ang, seed=i), blur)
+        img.alpha_composite(c, (int(x), int(y)))
+    img = P.soft_text(img, "Dad-a ang mga bata — naka-costume o dili!", P.fit("Dad-a ang mga bata — naka-costume o dili!", "sansb", 36, W - 100), 1150)
+    img = P.cta(img, "ADTO NA SA KARENDERIA", 1230, w=740)
+    img = P.footer(img, "Samtang naa pa ang candy  •  ☎ (0951) 781 4902", 1308)
+    img.convert("RGB").save(out, quality=93); print(out)
+
+if __name__ == "__main__":
+    main(sys.argv[1])
