@@ -23,3 +23,5 @@ outlined headline, script subline, hero photo, optional red badge, icon bullets,
 - Add real photos to `assets/hero/` and reference them by name (`"hero": "my-photo"`).
 - Prices in the spec abort the render unless `--allow-prices` is passed (owner-approved promo banners only).
 - Examples: `library/brand/example-*.json`. Needs Python Playwright + Pillow; fonts are bundled in `assets/fonts/brand/`.
+- Customer feedback layout: add a `feedback` block (`photo`, `name`, `time`, `text`) plus `closing`; see `feedback/README.md`.
+- Headline, CTA and bullets auto-shrink to fit; `overflow_px` must print 0.

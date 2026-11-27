@@ -132,6 +132,25 @@ def build_html(spec, bg_path, hero_path):
         hero = '<div class="hero%s"><div class="fv"><div class="fh"><img src="data:image/jpeg;base64,%s"></div></div>%s</div>' % (mode, b64(hero_path), badge)
     elif badge:
         hero = '<div class="hero nohero">%s</div>' % badge
+    fbh = ""
+    fb = spec.get("feedback")
+    if fb:
+        ph = fb.get("photo")
+        pp = ph if ph and os.path.exists(ph) else os.path.join(HERE, "feedback", "photos", "%s.jpg" % ph) if ph else None
+        photo = ('<div class="fbphoto"><img src="data:image/jpeg;base64,%s"></div>' % b64(pp)) if pp and os.path.exists(pp) else ""
+        nm = fb.get("name", "")
+        bdg = spec.get("badge", "Salamat\nKaayo!")
+        bt2 = "<br>".join(md(x) for x in bdg.split("\n"))
+        small = ('<div class="fbbadge"><div class="badge"><svg class="rim" viewBox="0 0 200 200"><defs><linearGradient id="g2" x1="0" y1="0" x2="1" y2="1">'
+                 '<stop offset="0" stop-color="#ffe08a"/><stop offset="1" stop-color="#c8891b"/></linearGradient></defs>'
+                 '<circle cx="100" cy="100" r="92" fill="url(#g2)"/><circle cx="100" cy="100" r="80" fill="#b3261e" stroke="#ffe08a" stroke-width="3"/></svg>'
+                 '<div class="stars">\u2605 \u2605 \u2605</div><div class="bt">%s</div></div></div>' % bt2)
+        fbh = ('<div class="fb">%s%s<div class="fbcard"><div class="fbtop"><div class="av">%s</div><div><div class="fbname">%s</div>%s</div></div>'
+               '<div class="fbtext">%s</div><div class="fbheart">\u2764</div></div></div>' % (
+                   photo, small if photo else "", md(nm[:1].upper() or "\u2605"), md(nm),
+                   ('<div class="fbtime">%s</div>' % md(fb["time"])) if fb.get("time") else "", md(fb.get("text", ""))))
+        hero = ""
+    closing = '<div class="closing">%s</div>' % "<br>".join(md(x) for x in spec["closing"].split("\n")) if spec.get("closing") else ""
     tagh = '<div class="tag">%s</div>' % md(tag) if tag else ""
     sub = spec.get("sub", "")
     cta = spec.get("cta", "MESSAGE LANG MI")
@@ -155,7 +174,7 @@ body{background:#1b0f07 url(data:image/jpeg;base64,%BG%) center/cover;font-famil
 .tag{margin-top:16px;background:linear-gradient(180deg,#ffd75a,#f3b11f);color:#5a1608;font-weight:700;font-size:30px;
   padding:8px 34px;border-radius:40px;border:3px solid #fff0b8;box-shadow:0 4px 10px rgba(0,0,0,.45);letter-spacing:.5px}
 .hl{position:relative;margin-top:22px;text-align:center;width:100%}
-.hl h1{font-family:'Baloo';font-weight:800;font-size:%HSIZE%px;line-height:.98;color:#fff;
+.hl h1{white-space:nowrap;font-family:'Baloo';font-weight:800;font-size:%HSIZE%px;line-height:.98;color:#fff;
   -webkit-text-stroke:14px #5a1608;paint-order:stroke fill;text-shadow:0 6px 0 #5a1608,0 10px 18px rgba(0,0,0,.5);letter-spacing:.5px}
 .rl{position:absolute;left:-4px;top:-46px;transform:scale(.8)}.rr{position:absolute;right:-4px;top:-46px;transform:scale(.8)}
 .sub{font-family:'Caveat';font-weight:700;font-size:50px;color:#ffd873;margin-top:6px;line-height:1.05;text-align:center;
@@ -174,11 +193,28 @@ body{background:#1b0f07 url(data:image/jpeg;base64,%BG%) center/cover;font-famil
 .badge .bt{position:relative;margin-top:22px;font-family:'Baloo';font-weight:800;font-size:38px;line-height:.95;color:#fff;
   text-align:center;-webkit-text-stroke:7px #6d130d;paint-order:stroke fill}
 .nohero{flex:1 1 auto;min-height:260px}.nohero .badge{position:relative;left:0;top:0;width:330px;height:330px;transform:rotate(-5deg)}.nohero .badge .bt{font-size:62px;-webkit-text-stroke:11px #6d130d}.nohero .badge .stars{top:58px;font-size:30px}
+.fb{position:relative;width:100%;margin-top:14px;padding:26px 0 26px 6px;display:flex;align-items:center;gap:26px}
+.fb:before{content:"";position:absolute;left:-48px;right:-48px;top:0;bottom:0;background:linear-gradient(180deg,#b3261e,#8e1a14);
+  clip-path:polygon(0 14%,100% 0,100% 88%,0 100%);z-index:0}
+.fbphoto{position:relative;z-index:1;width:330px;height:330px;flex:0 0 330px;border-radius:50%;border:9px solid #e9b94a;
+  box-shadow:0 8px 18px rgba(0,0,0,.55),inset 0 0 0 4px #fff0b8;overflow:hidden}
+.fbphoto img{width:100%;height:100%;object-fit:cover;display:block}
+.fbbadge{position:absolute;z-index:3;left:262px;top:-2px;width:150px;height:150px;transform:rotate(6deg);filter:drop-shadow(0 6px 8px rgba(0,0,0,.5))}
+.fbbadge .badge{position:relative;left:0;top:0;width:150px;height:150px;transform:none;filter:none}
+.fbbadge .badge .bt{font-size:27px;-webkit-text-stroke:5px #6d130d}.fbbadge .badge .stars{top:24px;font-size:14px}
+.fbcard{position:relative;z-index:1;flex:1;background:#2b1409;border:4px solid #e9b94a;border-radius:28px;padding:24px 26px;box-shadow:0 8px 18px rgba(0,0,0,.5)}
+.fbtop{display:flex;align-items:center;gap:16px}
+.av{width:70px;height:70px;border-radius:50%;background:linear-gradient(180deg,#ffd873,#d89a22);color:#5a1608;font-family:'Baloo';font-weight:800;font-size:40px;display:flex;align-items:center;justify-content:center;flex:0 0 70px}
+.fbname{font-weight:700;font-size:31px;color:#fff6e0;line-height:1.1}.fbtime{font-weight:500;font-size:22px;color:#c9b08a}
+.fbtext{margin-top:14px;font-weight:500;font-size:34px;line-height:1.22;color:#fff6e0}
+.fbheart{margin-top:10px;color:#ff4b5c;font-size:30px}
+.closing{margin-top:12px;width:100%;text-align:center;font-family:'Caveat';font-weight:700;font-size:48px;line-height:1.1;color:#ffd873;text-shadow:0 2px 6px rgba(0,0,0,.6)}
 .rows{width:100%;padding:0 34px;display:flex;flex-direction:column;gap:20px;margin-top:10px}
 .row{display:flex;align-items:center;gap:22px}
 .ic{width:70px;height:70px;flex:0 0 70px;filter:drop-shadow(0 2px 3px rgba(0,0,0,.5))}
 .tx{font-weight:600;font-size:36px;line-height:1.15;color:#fff6e0;text-shadow:0 2px 6px rgba(0,0,0,.6)}
 .tx b{font-weight:700;color:#ffd873}
+.cta span{white-space:nowrap}
 .cta{margin-top:20px;width:100%;height:104px;border-radius:60px;background:linear-gradient(180deg,#ffe066 0%,#f4b81f 100%);
   border:5px solid #fff0b8;box-shadow:0 8px 18px rgba(0,0,0,.55),inset 0 -6px 0 rgba(160,90,0,.25);
   display:flex;align-items:center;justify-content:center;gap:18px;font-weight:700;font-size:49px;color:#5a1608;letter-spacing:.5px}
@@ -195,13 +231,22 @@ body{background:#1b0f07 url(data:image/jpeg;base64,%BG%) center/cover;font-famil
 <div class="hl"><div class="rl">%RL%</div><div class="rr">%RR%</div><h1>%HEAD%</h1></div>
 <div class="sub"><span>%SUB%</span></div>
 %HERO%
+%FB%
 <div class="rows">%ROWS%</div>
+%CLOSING%
 <div class="cta">%MEGA%<span>%CTA%</span></div>
 <div class="foot">%PLACE%<br><span class="ph">%PHONESVG% %PHONE%</span></div>
-</div></body></html>"""
+</div><script>
+function fit(el,maxw){var fs=parseFloat(getComputedStyle(el).fontSize);while(el.scrollWidth>maxw&&fs>24){fs-=2;el.style.fontSize=fs+'px';}}
+document.fonts.ready.then(function(){
+var h=document.querySelector('.hl h1');if(h){h.style.display='inline-block';fit(h,970);}
+var c=document.querySelector('.cta span');if(c){c.style.display='inline-block';fit(c,800);}
+document.querySelectorAll('.tx').forEach(function(t){fit(t,880);});
+window.__done=true;});
+</script></body></html>"""
     rep = {"%FONTS%": css_fonts, "%BG%": b64(bg_path), "%HSIZE%": str(hsize),
            "%SP34%": SPARK % (34, 34), "%SP22%": SPARK % (22, 22), "%TAG%": tagh, "%RL%": RAYS_L, "%RR%": RAYS_R,
-           "%HEAD%": "<br>".join(md(l) for l in lines), "%SUB%": md(sub), "%HERO%": hero, "%ROWS%": "".join(rows),
+           "%HEAD%": "<br>".join(md(l) for l in lines), "%SUB%": md(sub), "%HERO%": hero, "%ROWS%": "".join(rows), "%FB%": fbh, "%CLOSING%": closing,
            "%MEGA%": MEGA, "%CTA%": md(cta), "%PLACE%": md(spec.get("place", PLACE)), "%POS%": spec.get("hero_pos", "50% 58%"), "%PHONESVG%": PHONE_SVG, "%PHONE%": PHONE}
     for k, v in rep.items():
         html = html.replace(k, v)
@@ -237,7 +282,8 @@ def main():
             b = p.chromium.launch(executable_path="/opt/pw-browsers/chromium")
         pg = b.new_page(viewport={"width": 1080, "height": 1350}, device_scale_factor=1.5)
         pg.goto("file://" + hp)
-        pg.wait_for_timeout(400)
+        pg.wait_for_function("window.__done===true", timeout=15000)
+        pg.wait_for_timeout(300)
         png = os.path.join(tmp, "out.png")
         pg.screenshot(path=png)
         # overflow check: column content must fit inside the canvas

@@ -1,0 +1,9 @@
+{
+ "tag": "CUSTOMER FEEDBACK",
+ "headline": "Dako kaayong salamat\nsa inyong pagsalig!",
+ "sub": "Puno sa gugma ug kalami sa matag selebrasyon!",
+ "feedback": {"photo": "event-slug", "name": "<name from queue.json>", "time": "1d", "text": "<customer words copied exactly from queue.json>"},
+ "badge": "Salamat\nKaayo!",
+ "closing": "Basta naay handaan o selebrasyon,\nkami andam mo-serve kaninyo!",
+ "cta": "MAG-MESSAGE NA PARA SA INYONG ORDERS!"
+}
