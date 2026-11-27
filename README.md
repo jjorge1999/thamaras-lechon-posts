@@ -14,3 +14,12 @@ Base photos live in `assets/`.
 `library/specs.json` lists each one's hook, sub line and featured items so a caption can match it.
 The daily task uses one of these when it can't upload a fresh graphic, picking one that hasn't
 been posted before.
+
+## Brand-style graphics (matches the owner's Nov 2026 banners)
+`python3 make_brand_post.py spec.json out.jpg` renders a 1620x2025 JPG: dark bokeh background, gold serif header,
+outlined headline, script subline, hero photo, optional red badge, icon bullets, yellow CTA pill and footer.
+- `hero`: `lechon` (in `assets/hero/`) or a path to any real food photo. Wide photos (aspect >= 2.5) span the width;
+  other photos are cropped to fit (`hero_pos`, `hero_fit: contain`). No hero = a large centred badge instead.
+- Add real photos to `assets/hero/` and reference them by name (`"hero": "my-photo"`).
+- Prices in the spec abort the render unless `--allow-prices` is passed (owner-approved promo banners only).
+- Examples: `library/brand/example-*.json`. Needs Python Playwright + Pillow; fonts are bundled in `assets/fonts/brand/`.
